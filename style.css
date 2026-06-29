@@ -1,0 +1,245 @@
+:root {
+    /* Neo-Dark Theme Colors */
+    --bg-main: #0d1117;          /* Github Dark Background */
+    --bg-panel: #161b22;         /* Panel/Card Background */
+    --bg-console: #0c1016;       /* Console/Terminal Deep Black */
+    --color-accent: #58a6ff;     /* Blue Accent for UI */
+    --color-run: #2ea44f;        /* Green for Run Button */
+    --text-main: #c9d1d9;        /* Light Text */
+    --text-muted: #8b949e;       /* Grey Muted Text */
+    
+    /* Code/Syntax Colors */
+    --color-keyword: #ff7b72;    /* Coral/Red */
+    --color-number: #79c0ff;     /* Lighter Blue */
+    --color-operator: #c9d1d9;   /* White/Light Grey */
+    --color-operator-kw: #f0883e; /* Orange for Operator Keywords */
+    --color-string: #a5d6ff;     /* Aqua/Sky Blue for Strings */
+    --color-comment: #486a87;    /* Muted Blue/Grey for Comments */
+    --color-token: #c9d1d9;      /* White/Light Grey for Token types */
+    --color-token-value: #79c0ff; /* Light Blue for Token values */
+    --color-identifier: #FFFFFF; 
+
+    --font-ui: 'Roboto', sans-serif;
+    --font-code: 'Fira Code', monospace;
+    --radius: 6px;
+}
+
+* { box-sizing: border-box; outline: none; }
+
+body {
+    margin: 0;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-ui);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Top Bar --- */
+.top-bar {
+    height: 60px;
+    background-color: var(--bg-panel);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    box-shadow: 0 1px 0 rgba(31, 35, 40, 0.4);
+    z-index: 50;
+}
+.logo-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-accent);
+}
+.logo-name i {
+    color: var(--color-run);
+    margin-right: 10px;
+}
+.action-buttons { display: flex; gap: 10px; }
+
+/* --- Buttons --- */
+.btn-primary, .btn-run {
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+.btn-primary {
+    background-color: var(--bg-console);
+    color: var(--color-accent);
+    border: 1px solid var(--text-muted);
+}
+.btn-primary:hover {
+    background-color: rgba(88, 166, 255, 0.1);
+    border-color: var(--color-accent);
+}
+.btn-run {
+    background-color: var(--color-run);
+    color: #FFFFFF;
+}
+.btn-run:hover {
+    background-color: #38c563;
+}
+
+/* --- App Container (Main Layout) --- */
+.app-container {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 3fr 1.5fr; /* Wider Editor, Narrower Info */
+    gap: 15px;
+    padding: 15px;
+    overflow: hidden;
+}
+
+/* --- Badges/Labels --- */
+.badge {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    margin-left: 10px;
+    float: right;
+    font-weight: 700;
+}
+.badge-lexer { background: #d29922; color: var(--bg-main); }
+.badge-output { background: var(--color-run); color: var(--bg-main); }
+
+/* --- Panes General Style --- */
+.pane-title {
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: 700;
+    background-color: #21262d; /* Title bar background */
+    border-radius: var(--radius) var(--radius) 0 0;
+    color: var(--text-main);
+    border-bottom: 2px solid var(--color-accent);
+}
+.pane-title i {
+    color: var(--color-accent);
+    margin-right: 8px;
+}
+.box-shadow-soft {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* --- Editor Panel --- */
+.editor-main { 
+    display: flex; 
+    flex-direction: column; 
+    border-radius: var(--radius); 
+    background-color: var(--bg-panel);
+}
+.editor-pane {
+    flex: 1; 
+    display: flex; 
+    position: relative;
+    overflow: hidden;
+    background-color: var(--bg-console); 
+    border-radius: 0 0 var(--radius) var(--radius);
+}
+
+/* Syntax Highlighting Overlay & Textarea */
+.syntax-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: 0;
+    padding: 10px 15px 10px 50px; 
+    font-family: var(--font-code);
+    font-size: 15px;
+    line-height: 1.5;
+    color: transparent; 
+    background: transparent;
+    pointer-events: none; 
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-y: hidden; 
+    z-index: 5;
+}
+
+textarea {
+    flex: 1; background: transparent; border: none; color: var(--text-main); 
+    font-family: var(--font-code); font-size: 15px; line-height: 1.5;
+    padding: 10px 15px 10px 50px; 
+    resize: none; outline: none; caret-color: var(--color-accent); 
+    z-index: 10;
+}
+
+/* Line Numbers */
+.line-numbers {
+    width: 45px; padding-top: 10px; text-align: right; padding-right: 10px;
+    color: var(--text-muted); font-family: var(--font-code); font-size: 15px;
+    line-height: 1.5; user-select: none; position: absolute; left: 0; top: 0;
+    background-color: #1b2028; /* Line number background */
+    border-right: 1px solid #21262d;
+    z-index: 1;
+}
+.line-numbers span { display: block; height: 1.5em; }
+
+/* Syntax Colors */
+.keyword { color: var(--color-keyword); font-weight: 700; }
+.number { color: var(--color-number); }
+.operator { color: var(--color-operator); }
+.operator-keyword { color: var(--color-operator-kw); } 
+.string { color: var(--color-string); } 
+.comment { color: var(--color-comment); font-style: italic; } 
+.identifier { color: var(--color-identifier); } 
+
+
+/* --- Info Panel (Lexer + Terminal) --- */
+.info-panel { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+    background-color: transparent;
+}
+.lexer-box, .terminal-box { 
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius); 
+}
+.output-log {
+    flex: 1; 
+    font-family: var(--font-code); 
+    font-size: 14px; 
+    padding: 10px 15px;
+    overflow-y: auto; /* CRITICAL FIX: Enables vertical scrolling */
+    background-color: var(--bg-console);
+    border-radius: 0 0 var(--radius) var(--radius);
+}
+.log-entry { margin-bottom: 4px; }
+.system { color: var(--color-accent); }
+.result { color: var(--color-run); font-weight: 700; } 
+.error { color: var(--color-keyword); font-weight: 700; }
+.token { color: var(--color-token); }
+.token-value { color: var(--color-token-value); margin-left: 8px; }
+
+
+/* --- MODAL (Documentation) Styles --- */
+.modal {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); z-index: 1000;
+    justify-content: center; align-items: center;
+}
+.modal-content {
+    width: 90%; max-width: 800px; padding: 30px; border-radius: 12px;
+    position: relative; max-height: 90vh; overflow-y: auto;
+    background-color: var(--bg-panel); border: 1px solid var(--color-accent);
+}
+.close-button {
+    color: var(--text-muted); font-size: 32px; font-weight: bold;
+    position: absolute; top: 10px; right: 20px; cursor: pointer; transition: color 0.2s;
+}
+.close-button:hover { color: var(--color-keyword); }
+.modal-header { color: var(--color-accent); border-bottom: 2px solid var(--color-run); padding-bottom: 5px;}
+.guide-content h4 { color: var(--color-keyword); border-left: 3px solid var(--color-operator-kw); padding-left: 10px; }
+.guide-content p { color: var(--text-muted); }
+.code-block { 
+    background: #0d1219; padding: 10px; border-radius: 6px; 
+    font-family: var(--font-code); color: var(--color-number); font-size: 13px; 
+    border-left: 3px solid var(--color-accent); margin-bottom: 15px; 
+}

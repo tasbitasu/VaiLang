@@ -1,0 +1,94 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VaiLang Studio | Neo-Dark Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="top-bar">
+        <div class="logo-name">
+            <i class="fas fa-terminal"></i> VaiLang Studio
+        </div>
+        <div class="action-buttons">
+            <button class="btn-primary btn-doc" onclick="showDocumentationModal()">
+                <i class="fas fa-book-open"></i> DOCS
+            </button>
+            <button class="btn-run" onclick="runCompiler()">
+                <i class="fas fa-play"></i> RUN
+            </button>
+        </div>
+    </header>
+
+    <div class="app-container">
+        
+        <main class="editor-main">
+            <div class="pane-title">
+                <i class="fas fa-file-code"></i> Script Editor: main.vai
+            </div>
+            <section class="editor-pane">
+                <div class="line-numbers" id="lineNumberDisplay"></div>
+                <textarea id="sourceCode" spellcheck="false" placeholder="Start coding in VaiLang..." 
+                             oninput="updateLineNumbers(); applySyntaxHighlighting();" onscroll="updateLineNumbers()">VAI START 
+</textarea>
+                <pre id="highlightedCode" class="syntax-overlay"></pre>
+            </section>
+        </main>
+
+        <aside class="info-panel">
+            
+            <div class="lexer-box box-shadow-soft">
+                <div class="pane-title">
+                    <i class="fas fa-list-ul"></i> Token Stream <span class="badge badge-lexer">LEXER</span>
+                </div>
+                <div id="lexerOutput" class="output-log">
+                    <div class="log-entry system">Run code to generate tokens...</div>
+                </div>
+            </div>
+
+            <div class="terminal-box box-shadow-soft">
+                <div class="pane-title">
+                    <i class="fas fa-laptop-code"></i> Output Console <span class="badge badge-output">OUTPUT</span>
+                </div>
+                <div id="outputConsole" class="output-log console-log">
+                    <div class="log-entry system">Ready to execute...</div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <div id="docModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeDocumentationModal()">&times;</span>
+            <h3 class="modal-header">📚 VaiLang Guide</h3>
+            <div class="guide-content">
+                <div class="lesson">
+                    <h4>1. Program Structure & Output</h4>
+                    <p>Program starts with <code>VAI START</code> and ends with <code>VAI END</code>. Use <code>DEKHAW VAI</code> to print values.</p>
+                    <div class="code-block">VAI START<br>DEKHAW VAI "Hello Vai!" ;<br>VAI END</div>
+                </div>
+                <div class="lesson">
+                    <h4>2. Arithmetic Operators</h4>
+                    <p>Arithmetic keywords: <code>JOGAVAI</code> (+), <code>MINUSVAI</code> (-), <code>GUNAVAI</code> (*), <code>VAGAVAI</code> (/), <code>FOGAVAI</code> (%).</p>
+                </div>
+                <div class="lesson">
+                    <h4>3. Control Flow</h4>
+                    <p><code>JODI VAI</code> (if), <code>GHUR VAI</code> (while), <code>FATIVAI</code> (break), <code>BARAVAI</code> (increment).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLineNumbers();
+            applySyntaxHighlighting(); 
+        });
+    </script>
+</body>
+</html>
